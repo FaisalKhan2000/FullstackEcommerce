@@ -1,6 +1,6 @@
 import express from "express";
-import productRoutes from "./routes/products.route";
 import errorHandler from "./middleware/errorHandler";
+import productRoutes from "./routes/products.route";
 const app = express();
 
 app.use(express.json());
@@ -17,7 +17,6 @@ app.get("/health-check", (req, res) => {
 });
 
 app.use("/products", productRoutes);
-
 app.use(errorHandler);
 
 const port = 8888;
