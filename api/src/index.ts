@@ -2,6 +2,7 @@ import express from "express";
 import errorHandler from "./middleware/errorHandler.js";
 import authRoutes from "./routes/auth.route.js";
 import productRoutes from "./routes/products.route.js";
+import serverless from "serverless-http";
 const app = express();
 
 app.use(express.json());
@@ -22,6 +23,11 @@ app.use("/products", productRoutes);
 app.use(errorHandler);
 
 const port = 8968;
-app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
-});
+
+if (process.env.NODE_ENV === "development") {
+  app.listen(port, () => {
+    console.log(`server is running on port ${port}`);
+  });
+}
+
+export const handler = serverless(app);
