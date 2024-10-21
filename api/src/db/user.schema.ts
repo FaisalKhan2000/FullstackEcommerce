@@ -6,6 +6,7 @@ import {
   text,
   varchar,
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 
 // enum
 const roleEnum = pgEnum("role", ["user", "admin", "super-admin"]);
@@ -17,4 +18,15 @@ export const usersTable = pgTable("users", {
   name: varchar({ length: 255 }),
   address: text(),
   isVerified: boolean().default(false),
+});
+
+export const createUserSchema = createInsertSchema(usersTable).omit({
+  id: true,
+  role: true,
+  isVerified: true,
+});
+
+export const loginUserSchema = createInsertSchema(usersTable).pick({
+  email: true,
+  password: true,
 });

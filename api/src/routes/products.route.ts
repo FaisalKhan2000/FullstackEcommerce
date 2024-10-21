@@ -11,10 +11,14 @@ import {
   updateProductSchema,
 } from "../db/products.schema";
 import { validateData } from "../middleware/validationMiddleware";
+import {
+  verifyRole,
+  verifyToken,
+} from "../middleware/authenticationMiddleware";
 
 const router = Router();
 
-router.route("/").get(listProducts);
+router.route("/").get(verifyToken, verifyRole(["user"]), listProducts);
 router.route("/:id").get(getProductById);
 router.route("/").post(validateData(createProductSchema), createProduct);
 router.route("/:id").put(validateData(updateProductSchema), updateProduct);
