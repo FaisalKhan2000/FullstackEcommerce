@@ -1,6 +1,7 @@
 import express from "express";
 import errorHandler from "./middleware/errorHandler";
 import productRoutes from "./routes/products.route";
+import authRoutes from "./routes/auth.route";
 const app = express();
 
 app.use(express.json());
@@ -16,6 +17,7 @@ app.get("/health-check", (req, res) => {
   });
 });
 
+app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use(errorHandler);
 
