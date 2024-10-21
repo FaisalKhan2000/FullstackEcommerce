@@ -4,13 +4,18 @@ import { z } from "zod";
 import AppError from "../utils/AppError";
 
 const handleZodError = (res: Response, error: z.ZodError) => {
-  const errors = error.issues.map((err) => ({
-    path: err.path.join("."),
-    message: err.message,
+  // const errors = error.issues.map((err) => ({
+  //   path: err.path.join("."),
+  //   message: err.message,
+  // }));
+
+  const errors = error.issues.map((issue: any) => ({
+    message: `${issue.path.join(".")} is ${issue.message}`,
   }));
 
   return res.status(BAD_REQUEST).json({
-    message: error.message,
+    // error: error,
+    // message: error.message,
     errors,
   });
 };

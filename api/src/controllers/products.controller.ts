@@ -1,10 +1,10 @@
-import { db } from "../db/db";
-import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from "../constants/http";
-import catchErrors from "../utils/catchErrors";
-import { productsTable } from "../db/products.schema";
-import { string } from "zod";
 import { eq } from "drizzle-orm";
+import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from "../constants/http";
+import { db } from "../db/db";
+import { createProductSchema, productsTable } from "../db/products.schema";
 import AppError from "../utils/AppError";
+import catchErrors from "../utils/catchErrors";
+import _ from "lodash";
 
 export const listProducts = catchErrors(async (req, res) => {
   const products = await db.select().from(productsTable);
@@ -34,7 +34,9 @@ export const getProductById = catchErrors(async (req, res, next) => {
 });
 
 export const createProduct = catchErrors(async (req, res) => {
-  const products = await db.insert(productsTable).values(req.body).returning();
+  const data = req.cleanBody;
+
+  const products = await db.insert(productsTable).values(data).returning();
 
   res
     .status(CREATED)
@@ -42,6 +44,7 @@ export const createProduct = catchErrors(async (req, res) => {
 });
 
 export const updateProduct = catchErrors(async (req, res, next) => {
+  const data = req.cleanBody;
   const { id } = req.params;
   const productId = Number(id);
 
@@ -51,7 +54,7 @@ export const updateProduct = catchErrors(async (req, res, next) => {
 
   const updatedProducts = await db
     .update(productsTable)
-    .set(req.body)
+    .set(data)
     .where(eq(productsTable.id, productId))
     .returning();
 
