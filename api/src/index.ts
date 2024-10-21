@@ -19,7 +19,7 @@ app.get("/health-check", (req, res) => {
 app.use("/products", productRoutes);
 app.use(errorHandler);
 
-const port = 8888;
+const port = 3000;
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
