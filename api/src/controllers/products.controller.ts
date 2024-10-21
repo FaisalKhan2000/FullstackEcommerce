@@ -1,10 +1,9 @@
 import { eq } from "drizzle-orm";
-import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from "../constants/http";
-import { db } from "../db/db";
-import { createProductSchema, productsTable } from "../db/products.schema";
-import AppError from "../utils/AppError";
-import catchErrors from "../utils/catchErrors";
-import _ from "lodash";
+import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from "../constants/http.js";
+import { db } from "../db/db.js";
+import { productsTable } from "../db/products.schema.js";
+import AppError from "../utils/AppError.js";
+import catchErrors from "../utils/catchErrors.js";
 
 export const listProducts = catchErrors(async (req, res) => {
   const products = await db.select().from(productsTable);

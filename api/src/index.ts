@@ -1,7 +1,7 @@
 import express from "express";
-import errorHandler from "./middleware/errorHandler";
-import productRoutes from "./routes/products.route";
-import authRoutes from "./routes/auth.route";
+import errorHandler from "./middleware/errorHandler.js";
+import authRoutes from "./routes/auth.route.js";
+import productRoutes from "./routes/products.route.js";
 const app = express();
 
 app.use(express.json());

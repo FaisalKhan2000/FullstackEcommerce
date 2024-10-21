@@ -1,7 +1,7 @@
 import express from "express";
-import { register, login } from "../controllers/auth.controller";
-import { validateData } from "../middleware/validationMiddleware";
-import { createUserSchema, loginUserSchema } from "../db/user.schema";
+import { login, register } from "../controllers/auth.controller.js";
+import { createUserSchema, loginUserSchema } from "../db/user.schema.js";
+import { validateData } from "../middleware/validationMiddleware.js";
 const router = express.Router();
 
 router.route("/register").post(validateData(createUserSchema), register);

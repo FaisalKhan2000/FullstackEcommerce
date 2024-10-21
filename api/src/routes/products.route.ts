@@ -5,16 +5,16 @@ import {
   getProductById,
   listProducts,
   updateProduct,
-} from "../controllers/products.controller";
+} from "../controllers/products.controller.js";
 import {
   createProductSchema,
   updateProductSchema,
-} from "../db/products.schema";
-import { validateData } from "../middleware/validationMiddleware";
+} from "../db/products.schema.js";
 import {
   verifyRole,
   verifyToken,
-} from "../middleware/authenticationMiddleware";
+} from "../middleware/authenticationMiddleware.js";
+import { validateData } from "../middleware/validationMiddleware.js";
 
 const router = Router();
 

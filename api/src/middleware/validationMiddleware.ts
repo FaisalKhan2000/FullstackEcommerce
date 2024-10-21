@@ -1,6 +1,5 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import _ from "lodash";
-import { createProductSchema } from "../db/products.schema";
 import { z } from "zod";
 
 export function validateData(schema: z.ZodObject<any, any>) {

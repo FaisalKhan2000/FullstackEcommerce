@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { FORBIDDEN, UNAUTHORIZED } from "../constants/http";
-import AppError from "../utils/AppError";
-import { verifyJwt } from "../utils/token";
+import { FORBIDDEN, UNAUTHORIZED } from "../constants/http.js";
+import AppError from "../utils/AppError.js";
+import { verifyJwt } from "../utils/token.js";
 
 export const verifyToken = (
   req: Request,
