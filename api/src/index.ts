@@ -2,6 +2,7 @@ import express from "express";
 import errorHandler from "./middleware/errorHandler.js";
 import authRoutes from "./routes/auth.route.js";
 import productRoutes from "./routes/products.route.js";
+import orderRoutes from "./routes/orders.route.js";
 import serverless from "serverless-http";
 const app = express();
 
@@ -20,6 +21,7 @@ app.get("/health-check", (req, res) => {
 
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
+app.use("/orders", orderRoutes);
 app.use(errorHandler);
 
 const port = 8968;
