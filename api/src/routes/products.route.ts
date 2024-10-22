@@ -18,10 +18,24 @@ import { validateData } from "../middleware/validationMiddleware.js";
 
 const router = Router();
 
-router.route("/").get(verifyToken, verifyRole(["user"]), listProducts);
+router.route("/").get(listProducts);
 router.route("/:id").get(getProductById);
-router.route("/").post(validateData(createProductSchema), createProduct);
-router.route("/:id").put(validateData(updateProductSchema), updateProduct);
-router.route("/:id").delete(deleteProduct);
+router
+  .route("/")
+  .post(
+    verifyToken,
+    verifyRole(["seller"]),
+    validateData(createProductSchema),
+    createProduct
+  );
+router
+  .route("/:id")
+  .put(
+    verifyToken,
+    verifyRole(["seller"]),
+    validateData(updateProductSchema),
+    updateProduct
+  );
+router.route("/:id").delete(verifyToken, verifyRole(["seller"]), deleteProduct);
 
 export default router;

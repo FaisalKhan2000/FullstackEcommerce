@@ -9,7 +9,8 @@ import {
 import { createInsertSchema } from "drizzle-zod";
 
 // enum
-const roleEnum = pgEnum("role", ["user", "admin", "super-admin"]);
+const roleEnum = pgEnum("role", ["user", "admin", "seller"]);
+
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   email: varchar({ length: 255 }).notNull().unique(),
