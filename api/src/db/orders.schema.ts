@@ -5,10 +5,10 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { usersTable } from "./user.schema";
-import { productsTable } from "./products.schema";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { productsTable } from "./products.schema";
+import { usersTable } from "./user.schema";
 
 export const ordersTable = pgTable("orders", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
