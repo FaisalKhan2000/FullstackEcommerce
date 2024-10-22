@@ -9,6 +9,7 @@ import { validateData } from "../middleware/validationMiddleware.js";
 import {
   insertOrderSchema,
   insertOrderWithItemsSchema,
+  updateOrderSchema,
 } from "../db/orders.schema.js";
 import { verifyToken } from "../middleware/authenticationMiddleware.js";
 
@@ -35,8 +36,12 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(listOrders)
+  .get(verifyToken, listOrders)
   .post(verifyToken, validateData(insertOrderWithItemsSchema), createOrder);
 
-router.route("/:id").get(getOrder).put(updateOrder);
+router
+  .route("/:id")
+  .get(verifyToken, getOrder)
+  .put(verifyToken, validateData(updateOrderSchema), updateOrder);
+
 export default router;
