@@ -1,3 +1,26 @@
+CREATE TABLE IF NOT EXISTS "products" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "products_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"name" varchar(255) NOT NULL,
+	"description" text,
+	"image" varchar(255),
+	"price" double precision NOT NULL
+);
+--> statement-breakpoint
+
+CREATE TYPE "role" AS ENUM ('user', 'admin', 'seller');
+--> statement-breakpoint
+
+CREATE TABLE IF NOT EXISTS "users" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "users_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"email" varchar(255) NOT NULL,
+	"password" varchar(255) NOT NULL,
+	"role" "role" DEFAULT 'user',
+	"name" varchar(255),
+	"address" text,
+	"isVerified" boolean DEFAULT false,
+	CONSTRAINT "users_email_unique" UNIQUE("email")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "order_items" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "order_items_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"orderId" integer NOT NULL,
